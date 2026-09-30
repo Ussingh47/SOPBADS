@@ -1,0 +1,94 @@
+{
+  "id": "procurement-package",
+  "name": "Vendor Procurement & Audit Dossier",
+  "description": "Enterprise procurement cycle package from requisition through technical bid review, purchase order, and final invoice.",
+  "category": "Supply Chain & Finance",
+  "steps": [
+    {
+      "id": "purchase-requisition",
+      "name": "Purchase Requisition (PR)",
+      "order": 1,
+      "documentTypes": ["purchase-requisition", "requisition-form"],
+      "required": true,
+      "description": "Internal department purchase requisition.",
+      "maxAllowed": 1
+    },
+    {
+      "id": "vendor-quotation",
+      "name": "Vendor Quotations & Bids",
+      "order": 2,
+      "documentTypes": ["vendor-quotation", "price-quote", "bid-document"],
+      "required": true,
+      "description": "Competing supplier quotes and RFQ submissions.",
+      "maxAllowed": 3
+    },
+    {
+      "id": "technical-evaluation",
+      "name": "Technical Evaluation Matrix",
+      "order": 3,
+      "documentTypes": ["technical-evaluation", "bid-evaluation", "procurement-memo"],
+      "required": true,
+      "description": "Procurement committee bid analysis.",
+      "maxAllowed": 1
+    },
+    {
+      "id": "purchase-order",
+      "name": "Approved Purchase Order (PO)",
+      "order": 4,
+      "documentTypes": ["purchase-order", "po-document"],
+      "required": true,
+      "description": "Executed Purchase Order issued to chosen vendor.",
+      "maxAllowed": 1
+    },
+    {
+      "id": "goods-receipt",
+      "name": "Goods Receipt / Inspection Note (GRN)",
+      "order": 5,
+      "documentTypes": ["goods-receipt", "delivery-challan", "inspection-certificate"],
+      "required": true,
+      "description": "Warehouse physical delivery and inspection verification.",
+      "maxAllowed": 2
+    },
+    {
+      "id": "vendor-invoice",
+      "name": "Final Tax Invoice",
+      "order": 6,
+      "documentTypes": ["vendor-invoice", "tax-invoice", "commercial-invoice"],
+      "required": true,
+      "description": "Supplier invoice matched against PO and GRN.",
+      "maxAllowed": 1
+    }
+  ],
+  "rules": [
+    {
+      "type": "before",
+      "before": "purchase-requisition",
+      "after": "vendor-quotation",
+      "description": "PR must precede Vendor Quotes."
+    },
+    {
+      "type": "before",
+      "before": "vendor-quotation",
+      "after": "technical-evaluation",
+      "description": "Quotes must precede Evaluation."
+    },
+    {
+      "type": "before",
+      "before": "technical-evaluation",
+      "after": "purchase-order",
+      "description": "Evaluation matrix must precede PO issuance."
+    },
+    {
+      "type": "before",
+      "before": "purchase-order",
+      "after": "goods-receipt",
+      "description": "PO must precede Goods Receipt."
+    },
+    {
+      "type": "before",
+      "before": "goods-receipt",
+      "after": "vendor-invoice",
+      "description": "Goods Receipt Note must precede Final Invoice approval."
+    }
+  ]
+}

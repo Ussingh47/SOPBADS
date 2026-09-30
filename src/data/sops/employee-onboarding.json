@@ -1,0 +1,88 @@
+{
+  "id": "employee-onboarding",
+  "name": "Employee Onboarding Dossier",
+  "description": "Standard corporate dossier for onboarding full-time personnel, verifying identity, credentials, and formal employment approval.",
+  "category": "Human Resources",
+  "steps": [
+    {
+      "id": "application",
+      "name": "Application Form",
+      "order": 1,
+      "documentTypes": ["application", "candidate-application", "job-application"],
+      "required": true,
+      "description": "Candidate completed employment application form.",
+      "maxAllowed": 1
+    },
+    {
+      "id": "identity-proof",
+      "name": "Identity Proof",
+      "order": 2,
+      "documentTypes": ["identity-proof", "passport", "national-id", "drivers-license"],
+      "required": true,
+      "description": "Government-issued photo identification proof.",
+      "maxAllowed": 2
+    },
+    {
+      "id": "address-proof",
+      "name": "Address Proof",
+      "order": 3,
+      "documentTypes": ["address-proof", "utility-bill", "rental-agreement"],
+      "required": false,
+      "description": "Residential address verification documentation.",
+      "maxAllowed": 1
+    },
+    {
+      "id": "verification",
+      "name": "Verification Report",
+      "order": 4,
+      "documentTypes": ["verification", "background-check", "credential-check"],
+      "required": true,
+      "description": "Third-party background and employment verification certificate.",
+      "maxAllowed": 1
+    },
+    {
+      "id": "approval",
+      "name": "Approval Letter",
+      "order": 5,
+      "documentTypes": ["approval", "offer-letter", "hiring-approval"],
+      "required": true,
+      "description": "Formal HR / Management hiring sanction letter.",
+      "maxAllowed": 1
+    },
+    {
+      "id": "final-decision",
+      "name": "Final Decision & Contract",
+      "order": 6,
+      "documentTypes": ["final-decision", "employment-agreement", "joining-report"],
+      "required": true,
+      "description": "Executed employment contract and confirmation order.",
+      "maxAllowed": 1
+    }
+  ],
+  "rules": [
+    {
+      "type": "before",
+      "before": "application",
+      "after": "identity-proof",
+      "description": "Application Form must precede Identity Proof in the dossier."
+    },
+    {
+      "type": "before",
+      "before": "identity-proof",
+      "after": "verification",
+      "description": "Identity Proof must precede Background Verification."
+    },
+    {
+      "type": "before",
+      "before": "verification",
+      "after": "approval",
+      "description": "Verification Report must be filed before Approval Letter."
+    },
+    {
+      "type": "before",
+      "before": "approval",
+      "after": "final-decision",
+      "description": "Approval Letter must precede Final Contract."
+    }
+  ]
+}

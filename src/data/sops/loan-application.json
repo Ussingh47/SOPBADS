@@ -1,0 +1,88 @@
+{
+  "id": "loan-application",
+  "name": "Mortgage & Commercial Loan File",
+  "description": "Financial compliance package for mortgage underwriting, collateral assessment, and credit sanction.",
+  "category": "Banking & Finance",
+  "steps": [
+    {
+      "id": "loan-application-form",
+      "name": "Loan Application Form",
+      "order": 1,
+      "documentTypes": ["loan-application", "borrower-application"],
+      "required": true,
+      "description": "Signed borrower loan intake application.",
+      "maxAllowed": 1
+    },
+    {
+      "id": "financial-statements",
+      "name": "Financial & Income Proof",
+      "order": 2,
+      "documentTypes": ["tax-return", "income-proof", "bank-statement", "salary-slip"],
+      "required": true,
+      "description": "Tax returns, payslips, or corporate audited balance sheets.",
+      "maxAllowed": 4
+    },
+    {
+      "id": "appraisal-report",
+      "name": "Collateral Appraisal Report",
+      "order": 3,
+      "documentTypes": ["appraisal-report", "valuation-report", "property-inspection"],
+      "required": true,
+      "description": "Licensed valuer inspection and property valuation.",
+      "maxAllowed": 1
+    },
+    {
+      "id": "underwriting-memo",
+      "name": "Risk & Underwriting Assessment",
+      "order": 4,
+      "documentTypes": ["underwriting-memo", "credit-memo", "risk-assessment"],
+      "required": true,
+      "description": "Credit officer risk rating and underwriting memorandum.",
+      "maxAllowed": 1
+    },
+    {
+      "id": "sanction-letter",
+      "name": "Sanction & Approval Letter",
+      "order": 5,
+      "documentTypes": ["sanction-letter", "credit-approval", "approval"],
+      "required": true,
+      "description": "Credit committee sanction letter with terms and interest rate.",
+      "maxAllowed": 1
+    },
+    {
+      "id": "promissory-agreement",
+      "name": "Disbursement Agreement & Deed",
+      "order": 6,
+      "documentTypes": ["loan-agreement", "promissory-note", "mortgage-deed"],
+      "required": true,
+      "description": "Executed loan agreement and security pledge.",
+      "maxAllowed": 1
+    }
+  ],
+  "rules": [
+    {
+      "type": "before",
+      "before": "loan-application-form",
+      "after": "financial-statements",
+      "description": "Application form must precede income proof."
+    },
+    {
+      "type": "before",
+      "before": "financial-statements",
+      "after": "appraisal-report",
+      "description": "Income proof must precede collateral appraisal."
+    },
+    {
+      "type": "before",
+      "before": "appraisal-report",
+      "after": "sanction-letter",
+      "description": "Appraisal report must be available before credit sanction."
+    },
+    {
+      "type": "before",
+      "before": "sanction-letter",
+      "after": "promissory-agreement",
+      "description": "Sanction letter must precede final loan agreement."
+    }
+  ]
+}
